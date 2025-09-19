@@ -1,21 +1,28 @@
+@use "../libs/breakpoints";
+@use "../libs/functions";
+@use "../libs/mixins";
+@use "../libs/vendor";
+
+@use "sass:color";
+
 /* Panel */
 
 	.panel {
-		@include padding(4em, 4em);
-		@include vendor('transform', 'translateY(100vh)');
-		@include vendor('transition', 'transform #{_duration(panel)} ease');
+		@include mixins.padding(4em, 4em);
+		@include vendor.vendor('transform', 'translateY(100vh)');
+		@include vendor.vendor('transition', 'transform #{functions.duration(panel)} ease');
 		-webkit-overflow-scrolling: touch;
-		background: transparentize(_palette(bg), 0.025);
-		bottom: _size(header);
+		background: color.adjust(functions.palette(bg), $alpha: -0.025);
+		bottom: functions.size(header);
 		left: 0;
-		max-height: calc(80vh - #{_size(header)});
+		max-height: calc(80vh - #{functions.size(header)});
 		overflow-y: auto;
 		position: fixed;
 		width: 100%;
-		z-index: _misc(z-index-base) + 1;
+		z-index: functions.misc(z-index-base) + 1;
 
 		&.active {
-			@include vendor('transform', 'translateY(1px)');
+			@include vendor.vendor('transform', 'translateY(1px)');
 		}
 
 		> .inner {
@@ -24,7 +31,7 @@
 			width: 75em;
 
 			&.split {
-				@include vendor('display', 'flex');
+				@include vendor.vendor('display', 'flex');
 
 				> div {
 					margin-left: 4em;
@@ -38,7 +45,7 @@
 		}
 
 		> .closer {
-			@include vendor('transition', 'opacity #{_duration(transition)} ease-in-out');
+			@include vendor.vendor('transition', 'opacity #{functions.duration(transition)} ease-in-out');
 			background-image: url('images/close.svg');
 			background-position: center;
 			background-repeat: no-repeat;
@@ -57,8 +64,8 @@
 			}
 		}
 
-		@include breakpoint('<=large') {
-			@include padding(3em, 3em);
+		@include breakpoints.breakpoint('<=large') {
+			@include mixins.padding(3em, 3em);
 
 			> .inner {
 				&.split {
@@ -74,10 +81,10 @@
 			}
 		}
 
-		@include breakpoint('<=medium') {
+		@include breakpoints.breakpoint('<=medium') {
 			> .inner {
 				&.split {
-					@include vendor('flex-direction', 'column');
+					@include vendor.vendor('flex-direction', 'column');
 
 					> div {
 						margin-left: 0;
@@ -87,14 +94,14 @@
 			}
 		}
 
-		@include breakpoint('<=small') {
-			@include vendor('transform', 'translateY(-100vh)');
-			@include padding(4em, 2em);
+		@include breakpoints.breakpoint('<=small') {
+			@include vendor.vendor('transform', 'translateY(-100vh)');
+			@include mixins.padding(4em, 2em);
 			bottom: auto;
-			top: calc(#{_size(header)} - 1px);
+			top: calc(#{functions.size(header)} - 1px);
 
 			&.active {
-				@include vendor('transform', 'translateY(0)');
+				@include vendor.vendor('transform', 'translateY(0)');
 			}
 		}
 	}

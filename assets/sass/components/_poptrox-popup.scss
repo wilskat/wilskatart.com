@@ -1,3 +1,10 @@
+@use "../libs/breakpoints";
+@use "../libs/functions";
+@use "../libs/mixins";
+@use "../libs/vendor";
+
+@use "sass:color";
+
 /* Poptrox Popup */
 
 	.poptrox-overlay {
@@ -5,13 +12,13 @@
 	}
 
 	.poptrox-popup {
-		background: transparentize(_palette(bg-alt), 0.075);
+		background: color.adjust(functions.palette(bg-alt), $alpha: -0.075);
 		box-shadow: 0 1em 3em 0.5em rgba(0,0,0,0.25);
 		cursor: default;
 
 		&:before {
-			@include vendor('transition', 'opacity #{_duration(transition)} ease-in-out');
-			@include vendor('background-image', (
+			@include vendor.vendor('transition', 'opacity #{functions.duration(transition)} ease-in-out');
+			@include vendor.vendor('background-image', (
 				'linear-gradient(to left, rgba(31,34,36,0.35), rgba(31,34,36,0) 10em, rgba(31,34,36,0))',
 				'linear-gradient(to right, rgba(31,34,36,0.35), rgba(31,34,36,0) 10em, rgba(31,34,36,0))'
 			));
@@ -27,7 +34,7 @@
 		}
 
 		.closer {
-			@include vendor('transition', 'opacity #{_duration(transition)} ease-in-out');
+			@include vendor.vendor('transition', 'opacity #{functions.duration(transition)} ease-in-out');
 			background-image: url('images/close.svg');
 			background-position: center;
 			background-repeat: no-repeat;
@@ -43,7 +50,7 @@
 
 		.nav-previous,
 		.nav-next {
-			@include vendor('transition', 'opacity #{_duration(transition)} ease-in-out');
+			@include vendor.vendor('transition', 'opacity #{functions.duration(transition)} ease-in-out');
 			background-image: url('images/arrow.svg');
 			background-position: center;
 			background-repeat: no-repeat;
@@ -59,7 +66,7 @@
 		}
 
 		.nav-previous {
-			@include vendor('transform', 'scaleX(-1)');
+			@include vendor.vendor('transform', 'scaleX(-1)');
 			left: 0;
 		}
 
@@ -68,8 +75,8 @@
 		}
 
 		.caption {
-			@include padding(2em, 2em);
-			@include vendor('background-image', 'linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%)');
+			@include mixins.padding(2em, 2em);
+			@include vendor.vendor('background-image', 'linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%)');
 			bottom: 0;
 			cursor: default;
 			left: 0;
@@ -79,16 +86,16 @@
 			z-index: 2;
 
 			h2, h3, h4, h5, h6 {
-				margin: 0 0 (_size(element-margin) * 0.25) 0;
+				margin: 0 0 (functions.size(element-margin) * 0.25) 0;
 			}
 
 			p {
-				color: _palette(fg-bold);
+				color: functions.palette(fg-bold);
 			}
 		}
 
 		.loader {
-			@include vendor('animation', 'spinner 1s infinite linear !important');
+			@include vendor.vendor('animation', 'spinner 1s infinite linear !important');
 			background-image: url('images/spinner.svg');
 			background-position: center;
 			background-repeat: no-repeat;
@@ -132,7 +139,7 @@
 			}
 		}
 
-		@include breakpoint('<=medium') {
+		@include breakpoints.breakpoint('<=medium') {
 			.closer {
 				background-size: 3em;
 			}
@@ -143,7 +150,7 @@
 			}
 		}
 
-		@include breakpoint('<=small') {
+		@include breakpoints.breakpoint('<=small') {
 			&:before {
 				display: none;
 			}

@@ -1,20 +1,15 @@
-@import 'libs/vars';
-@import 'libs/functions';
-@import 'libs/mixins';
-@import 'libs/vendor';
-@import 'libs/breakpoints';
+@use "sass:meta";
+@use 'libs/vars';
+@use 'libs/functions';
+@use 'libs/mixins';
+@use 'libs/vendor';
+@use 'libs/breakpoints';
 @import 'fontawesome-all.min.css';
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic');
 
-/*
-	Multiverse by Pixelarity
-	pixelarity.com | hello@pixelarity.com
-	License: pixelarity.com/license
-*/
-
 // Breakpoints.
 
-	@include breakpoints((
+	@include breakpoints.breakpoints((
 		xlarge:  ( 1281px,  1680px ),
 		large:   ( 981px,   1280px ),
 		medium:  ( 737px,   980px  ),
@@ -24,37 +19,37 @@
 
 // Spinner.
 
-	@include keyframes(spinner) {
+	@include vendor.keyframes(spinner) {
 		0% {
-			@include vendor('transform', 'rotate(0deg)');
+			@include vendor.vendor('transform', 'rotate(0deg)');
 		}
 
 		100% {
-			@include vendor('transform', 'rotate(359deg)');
+			@include vendor.vendor('transform', 'rotate(359deg)');
 		}
 	}
 
 // Base.
 
-	@import 'base/reset';
-	@import 'base/page';
-	@import 'base/typography';
+	@include meta.load-css('base/reset');
+	@include meta.load-css('base/page');
+	@include meta.load-css('base/typography');
 
 // Component.
 
-	@import 'components/button';
-	@import 'components/form';
-	@import 'components/icon';
-	@import 'components/list';
-	@import 'components/actions';
-	@import 'components/icons';
-	@import 'components/table';
-	@import 'components/panel';
-	@import 'components/poptrox-popup';
+	@include meta.load-css('components/button');
+	@include meta.load-css('components/form');
+	@include meta.load-css('components/icon');
+	@include meta.load-css('components/list');
+	@include meta.load-css('components/actions');
+	@include meta.load-css('components/icons');
+	@include meta.load-css('components/table');
+	@include meta.load-css('components/panel');
+	@include meta.load-css('components/poptrox-popup');
 
 // Layout.
 
-	@import 'layout/wrapper';
-	@import 'layout/header';
-	@import 'layout/main';
-	@import 'layout/footer';
+	@include meta.load-css('layout/wrapper');
+	@include meta.load-css('layout/header');
+	@include meta.load-css('layout/main');
+	@include meta.load-css('layout/footer');

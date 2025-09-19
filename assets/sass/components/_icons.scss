@@ -1,3 +1,5 @@
+@use "../libs/functions";
+
 /* Icons */
 
 	ul.icons {
@@ -14,7 +16,7 @@
 			}
 
 			.icon {
-				color: _palette(fg-light);
+				color: functions.palette(fg-light);
 
 				&:before {
 					font-size: 1.5em;

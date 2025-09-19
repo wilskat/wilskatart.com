@@ -1,8 +1,10 @@
+@use "../libs/functions";
+
 /* Footer */
 
 	#footer {
 		.copyright {
-			color: _palette(fg-light);
+			color: functions.palette(fg-light);
 			font-size: 0.9em;
 
 			a {

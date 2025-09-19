@@ -1,29 +1,35 @@
+@use "../libs/breakpoints";
+@use "../libs/functions";
+@use "../libs/vendor";
+
 /* Main */
 
-	#main {
-		@include vendor('transition', (
-			'-moz-filter #{_duration(panel)} ease',
-			'-webkit-filter #{_duration(panel)} ease',
-			'-ms-filter #{_duration(panel)} ease',
-			'filter #{_duration(panel)} ease'
+	@use "sass:math";
+
+#main {
+		@include vendor.vendor('transition', (
+			'-moz-filter #{functions.duration(panel)} ease',
+			'-webkit-filter #{functions.duration(panel)} ease',
+			'-ms-filter #{functions.duration(panel)} ease',
+			'filter #{functions.duration(panel)} ease'
 		));
-		@include vendor('display', 'flex');
-		@include vendor('flex-wrap', 'wrap');
+		@include vendor.vendor('display', 'flex');
+		@include vendor.vendor('flex-wrap', 'wrap');
 		-webkit-tap-highlight-color: rgba(255,255,255,0);
 
 		.thumb {
-			@include vendor('transition', (
+			@include vendor.vendor('transition', (
 				'opacity 1.25s ease-in-out'
 			));
-			@include vendor('pointer-events', 'auto');
+			@include vendor.vendor('pointer-events', 'auto');
 			-webkit-tap-highlight-color: rgba(255,255,255,0);
 			opacity: 1;
 			overflow: hidden;
 			position: relative;
 
 			&:after {
-				@include vendor('background-image', 'linear-gradient(to top, rgba(10,17,25,0.35) 5%, rgba(10,17,25,0) 35%)');
-				@include vendor('pointer-events', 'none');
+				@include vendor.vendor('background-image', 'linear-gradient(to top, rgba(10,17,25,0.35) 5%, rgba(10,17,25,0) 35%)');
+				@include vendor.vendor('pointer-events', 'none');
 				background-size: cover;
 				content: '';
 				display: block;
@@ -48,10 +54,10 @@
 			}
 
 			> h2 {
-				@include vendor('pointer-events', 'none');
-				bottom: (1.5em / 0.8);
+				@include vendor.vendor('pointer-events', 'none');
+				bottom: math.div(1.5em, 0.8);
 				font-size: 0.8em;
-				left: (1.75em / 0.8);
+				left: math.div(1.75em, 0.8);
 				margin: 0;
 				position: absolute;
 				z-index: 1;
@@ -63,12 +69,12 @@
 		}
 
 		&:after {
-			@include vendor('pointer-events', 'none');
-			@include vendor('transition', (
-				'opacity #{_duration(panel)} ease',
-				'visibility #{_duration(panel)}',
+			@include vendor.vendor('pointer-events', 'none');
+			@include vendor.vendor('transition', (
+				'opacity #{functions.duration(panel)} ease',
+				'visibility #{functions.duration(panel)}',
 			));
-			background: _palette(bg-overlay);
+			background: functions.palette(bg-overlay);
 			content: '';
 			display: block;
 			height: 100%;
@@ -81,15 +87,15 @@
 			z-index: 1;
 
 			body.ie & {
-				background: _palette(bg-ie-overlay);
+				background: functions.palette(bg-ie-overlay);
 			}
 		}
 
 		body.content-active & {
-			@include vendor('filter', 'blur(6px)');
+			@include vendor.vendor('filter', 'blur(6px)');
 
 			&:after {
-				@include vendor('pointer-events', 'auto');
+				@include vendor.vendor('pointer-events', 'auto');
 				opacity: 1;
 				visibility: visible;
 			}
@@ -97,24 +103,24 @@
 
 		body.is-preload & {
 			.thumb {
-				@include vendor('pointer-events', 'none');
+				@include vendor.vendor('pointer-events', 'none');
 				opacity: 0;
 			}
 		}
 
 		@mixin thumb($rows, $columns, $pad, $minHeight) {
-			$baseDelay: _duration(header) - 0.5;
-			$defaultDelay: $baseDelay + (((($rows * $columns) + 1) * 1.5) * _duration(thumb));
+			$baseDelay: functions.duration(header) - 0.5;
+			$defaultDelay: $baseDelay + (((($rows * $columns) + 1) * 1.5) * functions.duration(thumb));
 
 			.thumb {
-				@include vendor('transition-delay', '#{$defaultDelay}');
-				height: calc(#{100vh / ($rows + $pad)} - #{_size(header) / $rows});
+				@include vendor.vendor('transition-delay', '#{$defaultDelay}');
+				height: calc(#{math.div(100vh, $rows + $pad)} - #{math.div(functions.size(header), $rows)});
 				min-height: $minHeight;
-				width: (100% / $columns);
+				width: math.div(100%, $columns);
 
 				@for $i from 1 through (($rows * $columns) * 1.5) {
 					&:nth-child(#{$i}) {
-						@include vendor('transition-delay', '#{$baseDelay + ($i * _duration(thumb))}');
+						@include vendor.vendor('transition-delay', '#{$baseDelay + ($i * functions.duration(thumb))}');
 					}
 				}
 			}
@@ -122,49 +128,49 @@
 
 		// Default.
 			@include thumb(
-				_misc(main-layout, default, rows),
-				_misc(main-layout, default, columns),
-				_misc(main-layout, default, pad),
-				_misc(main-layout, default, minHeight)
+				functions.misc(main-layout, default, rows),
+				functions.misc(main-layout, default, columns),
+				functions.misc(main-layout, default, pad),
+				functions.misc(main-layout, default, minHeight)
 			);
 
 		// XLarge.
-			@include breakpoint('<=xlarge') {
+			@include breakpoints.breakpoint('<=xlarge') {
 				@include thumb(
-					_misc(main-layout, xlarge, rows),
-					_misc(main-layout, xlarge, columns),
-					_misc(main-layout, xlarge, pad),
-					_misc(main-layout, xlarge, minHeight)
+					functions.misc(main-layout, xlarge, rows),
+					functions.misc(main-layout, xlarge, columns),
+					functions.misc(main-layout, xlarge, pad),
+					functions.misc(main-layout, xlarge, minHeight)
 				);
 			}
 
 		// Large.
-			@include breakpoint('<=large') {
+			@include breakpoints.breakpoint('<=large') {
 				@include thumb(
-					_misc(main-layout, large, rows),
-					_misc(main-layout, large, columns),
-					_misc(main-layout, large, pad),
-					_misc(main-layout, large, minHeight)
+					functions.misc(main-layout, large, rows),
+					functions.misc(main-layout, large, columns),
+					functions.misc(main-layout, large, pad),
+					functions.misc(main-layout, large, minHeight)
 				);
 			}
 
 		// Medium.
-			@include breakpoint('<=medium') {
+			@include breakpoints.breakpoint('<=medium') {
 				@include thumb(
-					_misc(main-layout, medium, rows),
-					_misc(main-layout, medium, columns),
-					_misc(main-layout, medium, pad),
-					_misc(main-layout, medium, minHeight)
+					functions.misc(main-layout, medium, rows),
+					functions.misc(main-layout, medium, columns),
+					functions.misc(main-layout, medium, pad),
+					functions.misc(main-layout, medium, minHeight)
 				);
 			}
 
 		// XSmall.
-			@include breakpoint('<=xsmall') {
+			@include breakpoints.breakpoint('<=xsmall') {
 				@include thumb(
-					_misc(main-layout, xsmall, rows),
-					_misc(main-layout, xsmall, columns),
-					_misc(main-layout, xsmall, pad),
-					_misc(main-layout, xsmall, minHeight)
+					functions.misc(main-layout, xsmall, rows),
+					functions.misc(main-layout, xsmall, columns),
+					functions.misc(main-layout, xsmall, pad),
+					functions.misc(main-layout, xsmall, minHeight)
 				);
 			}
 
